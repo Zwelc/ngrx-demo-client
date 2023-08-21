@@ -1,6 +1,11 @@
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Message } from '@ngrx-demo-client/api-interfaces';
+import { TasksService } from './tasks.service';
+import { TasksApiActions } from './state/tasks.action';
+import { Store } from '@ngrx/store';
+import { selectTasks } from './state/tasks.selectors';
 
 @Component({
   selector: 'ngrx-demo-client-root',
@@ -8,6 +13,15 @@ import { Message } from '@ngrx-demo-client/api-interfaces';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
-  constructor(private http: HttpClient) {}
+  tasks$ = this.store.select(selectTasks);
+
+  constructor(private taskService: TasksService, private store: Store) {}
+
+  ngOnInit() {
+    this.taskService
+      .getTasks()
+      .subscribe((tasks) =>
+        this.store.dispatch(TasksApiActions.retrievedTaskList({ tasks }))
+      );
+  }
 }

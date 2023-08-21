@@ -1,4 +1,5 @@
 {
+  "name": "ngrx-demo-client",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/ngrx-demo-client/src",
@@ -75,7 +76,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/ngrx-demo-client/**/*.ts",
@@ -84,8 +85,8 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/ngrx-demo-client"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/ngrx-demo-client"],
       "options": {
         "jestConfig": "apps/ngrx-demo-client/jest.config.ts",
         "passWithNoTests": true

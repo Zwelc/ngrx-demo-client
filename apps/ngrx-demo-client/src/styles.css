@@ -1,1 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  @apply h-full w-full;
+}
+
+@layer base {
+  .card {
+    background-color: theme(colors.primary / 25%);
+  }
+  .card:hover {
+    background-color: theme(colors.primary / 30%);
+  }
+}
