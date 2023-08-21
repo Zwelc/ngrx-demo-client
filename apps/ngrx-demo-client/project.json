@@ -1,0 +1,96 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/ngrx-demo-client/src",
+  "prefix": "ngrx-demo-client",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ngrx-demo-client",
+        "index": "apps/ngrx-demo-client/src/index.html",
+        "main": "apps/ngrx-demo-client/src/main.ts",
+        "polyfills": "apps/ngrx-demo-client/src/polyfills.ts",
+        "tsConfig": "apps/ngrx-demo-client/tsconfig.app.json",
+        "assets": [
+          "apps/ngrx-demo-client/src/favicon.ico",
+          "apps/ngrx-demo-client/src/assets"
+        ],
+        "styles": ["apps/ngrx-demo-client/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ngrx-demo-client/src/environments/environment.ts",
+              "with": "apps/ngrx-demo-client/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "ngrx-demo-client:build:production"
+        },
+        "development": {
+          "browserTarget": "ngrx-demo-client:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/ngrx-demo-client/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "ngrx-demo-client:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/ngrx-demo-client/**/*.ts",
+          "apps/ngrx-demo-client/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/ngrx-demo-client"],
+      "options": {
+        "jestConfig": "apps/ngrx-demo-client/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
